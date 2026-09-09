@@ -50,20 +50,6 @@ layer(base);
   --color-white: #ffffff;
   --color-black: var(--text);
 
-<<<<<<< Updated upstream
-  --color-brand-25: #f2f8fd;
-  --color-brand-50: #e2eefa;
-  --color-brand-100: #c3d9f4;
-  --color-brand-200: #8eb1e6;
-  --color-brand-300: #5480d4;
-  --color-brand-400: #2d4f9f;
-  --color-brand-500: #1a2a57;
-  --color-brand-600: #131e49;
-  --color-brand-700: #0e143c;
-  --color-brand-800: #0a0d30;
-  --color-brand-900: #070727;
-  --color-brand-950: #06051c;
-=======
   --color-brand-25: #f9fcfc;
   --color-brand-50: #f2f9f8;
   --color-brand-100: #dff0ee;
@@ -76,7 +62,6 @@ layer(base);
   --color-brand-800: var(--secondary-blue);
   --color-brand-900: #243a72;
   --color-brand-950: var(--primary-blue);
->>>>>>> Stashed changes
 
   --color-blue-light-25: #f5fbff;
   --color-blue-light-50: #f0f9ff;
@@ -169,11 +154,7 @@ layer(base);
   --shadow-theme-xl: 0px 20px 24px -4px rgba(16, 24, 40, 0.08),
     0px 8px 8px -4px rgba(16, 24, 40, 0.03);
   --shadow-datepicker: -5px 0 0 #262d3c, 5px 0 0 #262d3c;
-<<<<<<< Updated upstream
-  --shadow-focus-ring: 0px 0px 0px 4px rgba(26, 42, 87, 0.16);
-=======
   --shadow-focus-ring: 0px 0px 0px 4px rgba(42, 157, 143, 0.12);
->>>>>>> Stashed changes
   --shadow-slider-navigation: 0px 1px 2px 0px rgba(16, 24, 40, 0.1),
     0px 1px 3px 0px rgba(16, 24, 40, 0.1);
   --shadow-tooltip: 0px 4px 6px -2px rgba(16, 24, 40, 0.05),
@@ -293,11 +274,7 @@ layer(base);
 }
 
 @utility menu-item-active {
-<<<<<<< Updated upstream
-  @apply bg-white/10 text-white;
-=======
   @apply bg-brand-950/8 text-brand-950 dark:bg-brand-950/25 dark:text-white;
->>>>>>> Stashed changes
 }
 
 @utility menu-item-inactive {
@@ -309,11 +286,7 @@ layer(base);
 }
 
 @utility menu-item-icon-active {
-<<<<<<< Updated upstream
-  @apply text-white;
-=======
   @apply text-brand-950 dark:text-white;
->>>>>>> Stashed changes
 }
 
 @utility menu-item-icon-inactive {
@@ -337,11 +310,7 @@ layer(base);
 }
 
 @utility menu-dropdown-item-active {
-<<<<<<< Updated upstream
-  @apply bg-white/10 text-white;
-=======
   @apply bg-brand-950/8 text-brand-950 dark:bg-brand-950/25 dark:text-white;
->>>>>>> Stashed changes
 }
 
 @utility menu-dropdown-item-inactive {
@@ -353,11 +322,7 @@ layer(base);
 }
 
 @utility menu-dropdown-badge-active {
-<<<<<<< Updated upstream
-  @apply bg-white/15;
-=======
   @apply bg-brand-950/10 dark:bg-brand-950/25;
->>>>>>> Stashed changes
 }
 
 @utility menu-dropdown-badge-inactive {
@@ -618,21 +583,13 @@ span.flatpickr-weekday,
 .flatpickr-day.selected.nextMonthDay,
 .flatpickr-day.startRange.nextMonthDay,
 .flatpickr-day.endRange.nextMonthDay {
-<<<<<<< Updated upstream
-  background:#1a2a57;
-=======
   background: var(--accent-teal);
->>>>>>> Stashed changes
   @apply !border-brand-500 !bg-brand-500 hover:!border-brand-500 hover:!bg-brand-500;
 }
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)),
 .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n + 1)) {
-<<<<<<< Updated upstream
-  box-shadow: -10px 0 0#1a2a57;
-=======
   box-shadow: -10px 0 0 var(--accent-teal);
->>>>>>> Stashed changes
 }
 
 .flatpickr-months .flatpickr-prev-month svg,
