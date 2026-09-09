@@ -4,6 +4,7 @@
       class="flex items-center text-white"
       @click.prevent="toggleDropdown"
     >
+<<<<<<< Updated upstream
       <span class="relative mr-3 flex h-11 w-11 shrink-0 items-center justify-center">
         <span
           class="avatar-badge flex h-11 w-11 items-center justify-center rounded-full text-sm font-semibold text-gray-800 dark:text-white"
@@ -13,6 +14,10 @@
         <span
           class="status-dot-online absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full ring-2 ring-[#1a2a57]"
         ></span>
+=======
+      <span class="mr-3 flex items-center justify-center rounded-full h-11 w-11 text-gray-400 dark:text-gray-500">
+        <UserCircleIcon class="h-11 w-11" />
+>>>>>>> Stashed changes
       </span>
 
       <span class="block mr-1 font-medium text-theme-sm">{{ displayName }}</span>

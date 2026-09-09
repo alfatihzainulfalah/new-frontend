@@ -15,7 +15,7 @@
   >
     <div
       :class="[
-        'py-8 flex',
+        'py-8 flex items-center',
         !isExpanded && !isHovered ? 'lg:justify-center' : 'justify-start',
       ]"
     >
@@ -23,16 +23,26 @@
         <img
           v-if="isExpanded || isHovered || isMobileOpen"
           src="/images/logo/logo-piagam2.svg"
+<<<<<<< Updated upstream
           alt="Piagam Logo"
           class="h-16 w-auto max-w-[240px] object-contain shrink-0"
+=======
+          alt="Logo"
+          class="h-16 w-auto object-contain"
+>>>>>>> Stashed changes
         />
         <img
           v-else
           src="/images/logo/logo-piagam.svg"
+<<<<<<< Updated upstream
           alt="Piagam Logo"
           width="48"
           height="48"
           class="shrink-0 object-contain"
+=======
+          alt="Logo"
+          class="h-11 w-auto object-contain"
+>>>>>>> Stashed changes
         />
       </router-link>
     </div>
