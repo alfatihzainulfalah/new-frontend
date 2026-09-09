@@ -1,7 +1,7 @@
 <template>
   <aside
     :class="[
-      'fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-99999 border-r border-gray-200',
+      'fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 sidebar-gradient-bg text-white h-screen transition-all duration-300 ease-in-out z-99999',
       {
         'lg:w-[290px]': isExpanded || isMobileOpen || isHovered,
         'lg:w-[90px]': !isExpanded && !isHovered,
@@ -19,29 +19,20 @@
         !isExpanded && !isHovered ? 'lg:justify-center' : 'justify-start',
       ]"
     >
-      <router-link to="/">
+      <router-link to="/" class="flex items-center">
         <img
           v-if="isExpanded || isHovered || isMobileOpen"
-          class="dark:hidden"
-          src="/images/logo/logo.svg"
-          alt="Logo"
-          width="150"
-          height="40"
-        />
-        <img
-          v-if="isExpanded || isHovered || isMobileOpen"
-          class="hidden dark:block"
-          src="/images/logo/logo-dark.svg"
-          alt="Logo"
-          width="150"
-          height="40"
+          src="/images/logo/logo-piagam2.svg"
+          alt="Piagam Logo"
+          class="h-16 w-auto max-w-[240px] object-contain shrink-0"
         />
         <img
           v-else
-          src="/images/logo/logo-icon.svg"
-          alt="Logo"
-          width="32"
-          height="32"
+          src="/images/logo/logo-piagam.svg"
+          alt="Piagam Logo"
+          width="48"
+          height="48"
+          class="shrink-0 object-contain"
         />
       </router-link>
     </div>
@@ -53,7 +44,7 @@
           <div v-for="(menuGroup, groupIndex) in menuGroups" :key="groupIndex">
             <h2
               :class="[
-                'mb-4 text-xs uppercase flex leading-[20px] text-gray-400',
+                'mb-4 text-xs uppercase flex leading-[20px] text-white/40',
                 !isExpanded && !isHovered
                   ? 'lg:justify-center'
                   : 'justify-start',
@@ -70,9 +61,9 @@
                   v-if="item.subItems"
                   @click="toggleSubmenu(groupIndex, index)"
                   :class="[
-                    'menu-item group w-full',
+                    'menu-item nav-item group w-full',
                     {
-                      'menu-item-active': isSubmenuOpen(groupIndex, index),
+                      'menu-item-active nav-item-active': isSubmenuOpen(groupIndex, index),
                       'menu-item-inactive': !isSubmenuOpen(groupIndex, index),
                     },
                     !isExpanded && !isHovered
@@ -99,7 +90,7 @@
                     :class="[
                       'ml-auto w-5 h-5 transition-transform duration-200',
                       {
-                        'rotate-180 text-brand-500': isSubmenuOpen(
+                        'rotate-180 icon-active-gold': isSubmenuOpen(
                           groupIndex,
                           index
                         ),
@@ -111,9 +102,9 @@
                   v-else-if="item.path"
                   :to="item.path"
                   :class="[
-                    'menu-item group',
+                    'menu-item nav-item group',
                     {
-                      'menu-item-active': isActive(item.path),
+                      'menu-item-active nav-item-active': isActive(item.path),
                       'menu-item-inactive': !isActive(item.path),
                     },
                   ]"
@@ -206,7 +197,6 @@
           </div>
         </div>
       </nav>
-      <SidebarWidget v-if="isExpanded || isHovered || isMobileOpen" />
     </div>
   </aside>
 </template>
@@ -216,22 +206,13 @@ import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 
 import {
-  GridIcon,
-  CalenderIcon,
-  UserCircleIcon,
-  ChatIcon,
-  MailIcon,
-  DocsIcon,
-  PieChartIcon,
   ChevronDownIcon,
   HorizontalDots,
-  PageIcon,
-  TableIcon,
-  ListIcon,
-  PlugInIcon,
+  BoxIcon,
+  SettingsIcon,
+  FolderIcon,
+  LayoutDashboardIcon,
 } from "../../icons";
-import SidebarWidget from "./SidebarWidget.vue";
-import BoxCubeIcon from "@/icons/BoxCubeIcon.vue";
 import { useSidebar } from "@/composables/useSidebar";
 
 const route = useRoute();
@@ -243,75 +224,41 @@ const menuGroups = [
     title: "Menu",
     items: [
       {
-        icon: GridIcon,
+        icon: LayoutDashboardIcon,
         name: "Dashboard",
-        subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+        path: "/",
       },
       {
-        icon: CalenderIcon,
-        name: "Calendar",
-        path: "/calendar",
-      },
-      {
-        icon: UserCircleIcon,
-        name: "User Profile",
-        path: "/profile",
-      },
-
-      {
-        name: "Forms",
-        icon: ListIcon,
+        icon: BoxIcon,
+        name: "Asset",
         subItems: [
-          { name: "Form Elements", path: "/form-elements", pro: false },
+          { name: "Asset Fixed", path: "/asset/fixed", pro: false },
+          { name: "Asset Consumeable", path: "/asset/consumeable", pro: false },
         ],
       },
       {
-        name: "Tables",
-        icon: TableIcon,
-        subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
-      },
-      {
-        name: "Pages",
-        icon: PageIcon,
+        icon: SettingsIcon,
+        name: "Permissions",
         subItems: [
-          { name: "Black Page", path: "/blank", pro: false },
-          { name: "404 Page", path: "/error-404", pro: false },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Others",
-    items: [
-      {
-        icon: PieChartIcon,
-        name: "Charts",
-        subItems: [
-          { name: "Line Chart", path: "/line-chart", pro: false },
-          { name: "Bar Chart", path: "/bar-chart", pro: false },
+          { name: "Permission List", path: "/permissions/list", pro: false },
+          {
+            name: "Permission Assignments",
+            path: "/permissions/assignments",
+            pro: false,
+          },
         ],
       },
       {
-        icon: BoxCubeIcon,
-        name: "Ui Elements",
+        icon: FolderIcon,
+        name: "Master",
         subItems: [
-          { name: "Alerts", path: "/alerts", pro: false },
-          { name: "Avatars", path: "/avatars", pro: false },
-          { name: "Badge", path: "/badge", pro: false },
-          { name: "Buttons", path: "/buttons", pro: false },
-          { name: "Images", path: "/images", pro: false },
-          { name: "Videos", path: "/videos", pro: false },
+          { name: "Asset Categories", path: "/master/categories", pro: false },
+          { name: "Brands", path: "/master/brands", pro: false },
+          { name: "Locations", path: "/master/locations", pro: false },
+          { name: "Units of Measure", path: "/master/uoms", pro: false },
+          { name: "Numbering", path: "/master/numbering", pro: false },
         ],
       },
-      {
-        icon: PlugInIcon,
-        name: "Authentication",
-        subItems: [
-          { name: "Signin", path: "/signin", pro: false },
-          { name: "Signup", path: "/signup", pro: false },
-        ],
-      },
-      // ... Add other menu items here
     ],
   },
 ];

@@ -1,14 +1,21 @@
 <template>
   <div class="relative" ref="dropdownRef">
     <button
-      class="flex items-center text-gray-700 dark:text-gray-400"
+      class="flex items-center text-white"
       @click.prevent="toggleDropdown"
     >
-      <span class="mr-3 overflow-hidden rounded-full h-11 w-11">
-        <img src="/images/user/owner.jpg" alt="User" />
+      <span class="relative mr-3 flex h-11 w-11 shrink-0 items-center justify-center">
+        <span
+          class="avatar-badge flex h-11 w-11 items-center justify-center rounded-full text-sm font-semibold text-gray-800 dark:text-white"
+        >
+          {{ initials }}
+        </span>
+        <span
+          class="status-dot-online absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full ring-2 ring-[#1a2a57]"
+        ></span>
       </span>
 
-      <span class="block mr-1 font-medium text-theme-sm">Musharof </span>
+      <span class="block mr-1 font-medium text-theme-sm">{{ displayName }}</span>
 
       <ChevronDownIcon :class="{ 'rotate-180': dropdownOpen }" />
     </button>
@@ -20,28 +27,13 @@
     >
       <div>
         <span class="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
-          Musharof Chowdhury
+          {{ displayName }}
         </span>
         <span class="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
-          randomuser@pimjo.com
+          {{ displayEmail }}
         </span>
       </div>
 
-      <ul class="flex flex-col gap-1 pt-4 pb-3 border-b border-gray-200 dark:border-gray-800">
-        <li v-for="item in menuItems" :key="item.href">
-          <router-link
-            :to="item.href"
-            class="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
-          >
-            <!-- SVG icon would go here -->
-            <component
-              :is="item.icon"
-              class="text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300"
-            />
-            {{ item.text }}
-          </router-link>
-        </li>
-      </ul>
       <router-link
         to="/signin"
         @click="signOut"
@@ -50,7 +42,7 @@
         <LogoutIcon
           class="text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300"
         />
-        Sign out
+        Back Pilargroup
       </router-link>
     </div>
     <!-- Dropdown End -->
@@ -58,18 +50,22 @@
 </template>
 
 <script setup>
-import { UserCircleIcon, ChevronDownIcon, LogoutIcon, SettingsIcon, InfoCircleIcon } from '@/icons'
+import { ChevronDownIcon, LogoutIcon } from '@/icons'
 import { RouterLink } from 'vue-router'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { authState, fetchCurrentUser, getDisplayName, getDisplayEmail, logout } from '@/service/auth'
 
 const dropdownOpen = ref(false)
 const dropdownRef = ref(null)
 
-const menuItems = [
-  { href: '/profile', icon: UserCircleIcon, text: 'Edit profile' },
-  { href: '/chat', icon: SettingsIcon, text: 'Account settings' },
-  { href: '/profile', icon: InfoCircleIcon, text: 'Support' },
-]
+const displayName = computed(() => getDisplayName(authState.user))
+const displayEmail = computed(() => getDisplayEmail(authState.user))
+const initials = computed(() => {
+  const parts = displayName.value.trim().split(/\s+/).filter(Boolean)
+  if (parts.length === 0) return '?'
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
+  return (parts[0][0] + parts[1][0]).toUpperCase()
+})
 
 const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value
@@ -80,8 +76,7 @@ const closeDropdown = () => {
 }
 
 const signOut = () => {
-  // Implement sign out logic here
-  console.log('Signing out...')
+  logout()
   closeDropdown()
 }
 
@@ -93,6 +88,10 @@ const handleClickOutside = (event) => {
 
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
+
+  if (!authState.user) {
+    fetchCurrentUser().catch(() => {})
+  }
 })
 
 onUnmounted(() => {

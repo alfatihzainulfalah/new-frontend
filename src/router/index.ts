@@ -8,10 +8,10 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'Ecommerce',
-      component: () => import('../views/Ecommerce.vue'),
+      name: 'Dashboard',
+      component: () => import('../components/pages/dashboard/DashboardPage.vue'),
       meta: {
-        title: 'eCommerce Dashboard',
+        title: 'Dashboard',
       },
     },
     {
@@ -28,6 +28,78 @@ const router = createRouter({
       component: () => import('../views/Others/UserProfile.vue'),
       meta: {
         title: 'Profile',
+      },
+    },
+    {
+      path: '/asset/fixed',
+      name: 'Asset Fixed',
+      component: () => import('../components/pages/assets/AssetFixed.vue'),
+      meta: {
+        title: 'Asset Fixed',
+      },
+    },
+    {
+      path: '/asset/consumeable',
+      name: 'Asset Consumeable',
+      component: () => import('../components/pages/assets/AssetConsumeable.vue'),
+      meta: {
+        title: 'Asset Consumeable',
+      },
+    },
+    {
+      path: '/master/categories',
+      name: 'Asset Categories',
+      component: () => import('../components/pages/master/AssetCategoriesPage.vue'),
+      meta: {
+        title: 'Asset Categories',
+      },
+    },
+    {
+      path: '/master/brands',
+      name: 'Brands',
+      component: () => import('../components/pages/master/BrandsPage.vue'),
+      meta: {
+        title: 'Brands',
+      },
+    },
+    {
+      path: '/master/locations',
+      name: 'Locations',
+      component: () => import('../components/pages/master/LocationsPage.vue'),
+      meta: {
+        title: 'Locations',
+      },
+    },
+    {
+      path: '/master/uoms',
+      name: 'Units of Measure',
+      component: () => import('../components/pages/master/UomsPage.vue'),
+      meta: {
+        title: 'Units of Measure',
+      },
+    },
+    {
+      path: '/master/numbering',
+      name: 'Numbering',
+      component: () => import('../components/pages/master/NumberingPage.vue'),
+      meta: {
+        title: 'Numbering',
+      },
+    },
+    {
+      path: '/permissions/list',
+      name: 'Permission List',
+      component: () => import('../components/pages/permissions/PermissionListPage.vue'),
+      meta: {
+        title: 'Permission List',
+      },
+    },
+    {
+      path: '/permissions/assignments',
+      name: 'Permission Assignments',
+      component: () => import('../components/pages/permissions/PermissionAssignments.vue'),
+      meta: {
+        title: 'Permission Assignments',
       },
     },
     {
@@ -146,6 +218,6 @@ const router = createRouter({
 export default router
 
 router.beforeEach((to, from, next) => {
-  document.title = `Vue.js ${to.meta.title} | TailAdmin - Vue.js Tailwind CSS Dashboard Template`
+  document.title = `${to.meta.title} | Asset Management System`
   next()
 })
