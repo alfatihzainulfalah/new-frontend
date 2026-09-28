@@ -130,7 +130,7 @@ import ComponentCard from '@/components/common/ComponentCard.vue'
 import BaseTable from '@/components/tables/BaseTable.vue'
 import TableHeadCell from '@/components/tables/TableHeadCell.vue'
 import Badge from '@/components/ui/Badge.vue'
-import { getDashboard } from '@/service/axios'
+import { getDashboard } from '@/service/templateApi'
 import { RefreshIcon, BoxCubeIcon, ArchiveIcon, UserGroupIcon, TableIcon, WarningIcon } from '@/icons'
 
 const currentPageTitle = ref('Dashboard')

@@ -129,7 +129,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import DialogActivityLogs from '@/components/dialog/DialogActivityLogs.vue'
-import { getActivityLogs } from '@/service/axios'
+import { getActivityLogs } from '@/service/templateApi'
 import { formatRelativeTime } from '@/utils/formatTime'
 import { actorName, describeActivity, initials } from '@/utils/activityLog'
 

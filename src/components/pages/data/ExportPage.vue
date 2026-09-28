@@ -47,7 +47,7 @@ import AdminLayout from '@/components/layout/AdminLayout.vue'
 import PageBreadcrumb from '@/components/common/PageBreadcrumb.vue'
 import ComponentCard from '@/components/common/ComponentCard.vue'
 import { TableIcon } from '@/icons'
-import { exportData } from '@/service/axios'
+import { exportData } from '@/service/templateApi'
 import { triggerBlobDownload, parseBlobErrorMessage } from '@/utils/download'
 
 const currentPageTitle = ref('Export & Reports')

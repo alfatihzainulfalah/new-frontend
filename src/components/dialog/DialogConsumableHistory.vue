@@ -517,7 +517,7 @@ import {
   getDirectoryDepartments,
   getDirectoryUsers,
   getAssets,
-} from '@/service/axios'
+} from '@/service/templateApi'
 
 const props = defineProps({
   isOpen: {

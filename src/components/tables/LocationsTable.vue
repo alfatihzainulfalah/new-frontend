@@ -110,7 +110,7 @@
 
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
-import { getMasterData } from '@/service/axios'
+import { getMasterData } from '@/service/templateApi'
 import Badge from '@/components/ui/Badge.vue'
 import BaseTable from '@/components/tables/BaseTable.vue'
 import TableHeadCell from '@/components/tables/TableHeadCell.vue'

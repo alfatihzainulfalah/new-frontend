@@ -119,7 +119,7 @@ import {
   setCategoryDepreciationDefault,
   getDirectoryDepartments,
   getDirectoryCompanies,
-} from '@/service/axios'
+} from '@/service/templateApi'
 
 const categories = ref([])
 const policies = ref([])

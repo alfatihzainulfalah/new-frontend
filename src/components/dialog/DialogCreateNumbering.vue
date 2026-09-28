@@ -245,7 +245,7 @@ import {
   updateNumberingConfig,
   getDirectoryDepartments,
   getDirectoryCompanies,
-} from '@/service/axios'
+} from '@/service/templateApi'
 
 const props = defineProps({
   isOpen: {

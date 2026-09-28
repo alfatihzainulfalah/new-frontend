@@ -162,7 +162,7 @@ import {
   getDirectoryUsers,
   getDirectoryDepartments,
   getDirectoryCompanies,
-} from '@/service/axios'
+} from '@/service/templateApi'
 import Badge from '@/components/ui/Badge.vue'
 import BaseTable from '@/components/tables/BaseTable.vue'
 import TableHeadCell from '@/components/tables/TableHeadCell.vue'

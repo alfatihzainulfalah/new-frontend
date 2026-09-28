@@ -99,7 +99,7 @@
 
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
-import { getPermissions } from '@/service/axios'
+import { getPermissions } from '@/service/templateApi'
 import Badge from '@/components/ui/Badge.vue'
 import BaseTable from '@/components/tables/BaseTable.vue'
 import TableHeadCell from '@/components/tables/TableHeadCell.vue'

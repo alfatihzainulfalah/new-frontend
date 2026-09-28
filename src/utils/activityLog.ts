@@ -1,4 +1,4 @@
-import type { ActivityLogRecord } from '@/service/axios'
+import type { ActivityLogRecord } from '@/service/templateApi'
 
 type ActivityRow = Partial<ActivityLogRecord>
 

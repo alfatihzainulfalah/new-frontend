@@ -1,7 +1,13 @@
 import { reactive, readonly } from 'vue'
-import api from './axios'
 
 const TOKEN_KEY = 'auth_token'
+
+const TEMPLATE_USER: AuthUser = {
+  id: 'u-001',
+  name: 'Template User',
+  username: 'template.user',
+  email: 'template@example.com',
+}
 
 export interface AuthUser {
   id: string | number
@@ -40,34 +46,11 @@ export function clearToken(): void {
   localStorage.removeItem(TOKEN_KEY)
 }
 
-api.interceptors.request.use((config) => {
-  const token = getToken()
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-})
-
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      clearToken()
-      state.user = null
-    }
-    return Promise.reject(error)
-  },
-)
-
 export async function fetchCurrentUser(): Promise<AuthUser | null> {
   state.isLoading = true
   try {
-    const { data } = await api.get('/auth/me')
-    state.user = data?.data ?? null
+    state.user = TEMPLATE_USER
     return state.user
-  } catch (err) {
-    state.user = null
-    throw err
   } finally {
     state.isLoading = false
     state.isReady = true

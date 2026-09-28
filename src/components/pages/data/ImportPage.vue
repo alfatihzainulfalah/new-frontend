@@ -166,7 +166,7 @@ import {
   cancelImportPreview,
   downloadImportTemplate,
   downloadImportErrors,
-} from '@/service/axios'
+} from '@/service/templateApi'
 import { triggerBlobDownload, parseBlobErrorMessage } from '@/utils/download'
 
 const currentPageTitle = ref('Import')

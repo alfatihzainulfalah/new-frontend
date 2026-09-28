@@ -114,7 +114,7 @@
 
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
-import { getNumberingConfigs } from '@/service/axios'
+import { getNumberingConfigs } from '@/service/templateApi'
 import Badge from '@/components/ui/Badge.vue'
 import BaseTable from '@/components/tables/BaseTable.vue'
 import TableHeadCell from '@/components/tables/TableHeadCell.vue'

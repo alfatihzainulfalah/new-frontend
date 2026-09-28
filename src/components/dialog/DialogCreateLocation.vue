@@ -186,7 +186,7 @@ import Modal from '@/components/ui/Modal.vue'
 import SelectField from '@/components/forms/FormElements/SelectField.vue'
 import ToggleSwitch from '@/components/forms/FormElements/ToggleSwitch.vue'
 import { ChevronDownIcon } from '@/icons'
-import { createMasterData, updateMasterData, getMasterData, getDirectoryCompanies } from '@/service/axios'
+import { createMasterData, updateMasterData, getMasterData, getDirectoryCompanies } from '@/service/templateApi'
 
 const props = defineProps({
   isOpen: {

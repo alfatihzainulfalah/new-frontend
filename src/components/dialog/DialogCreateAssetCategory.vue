@@ -93,7 +93,7 @@ import { ref, reactive, computed, watch } from 'vue'
 import Modal from '@/components/ui/Modal.vue'
 import SelectField from '@/components/forms/FormElements/SelectField.vue'
 import ToggleSwitch from '@/components/forms/FormElements/ToggleSwitch.vue'
-import { createMasterData, updateMasterData } from '@/service/axios'
+import { createMasterData, updateMasterData } from '@/service/templateApi'
 
 const props = defineProps({
   isOpen: {
