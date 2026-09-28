@@ -15,7 +15,7 @@
   >
     <div
       :class="[
-        'py-8 flex',
+        'py-8 flex items-center',
         !isExpanded && !isHovered ? 'lg:justify-center' : 'justify-start',
       ]"
     >
