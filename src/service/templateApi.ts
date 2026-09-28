@@ -155,6 +155,69 @@ export interface DirectoryListResponse {
   data: DirectoryRecord[]
 }
 
+export interface ChatUserRecord {
+  _id: string
+  username: string
+  avatar: string
+  status: { state: 'online' | 'offline'; lastChanged: string }
+}
+
+export interface ChatMessageFileRecord {
+  name: string
+  size?: number
+  type: string
+  extension?: string
+  url: string
+  localUrl?: string
+}
+
+export interface ChatMessageRecord extends AnyRecord {
+  _id: string
+  senderId: string
+  content: string
+  date: string
+  timestamp: string
+  saved?: boolean
+  distributed?: boolean
+  seen?: boolean
+  files?: ChatMessageFileRecord[]
+  replyMessage?: AnyRecord
+}
+
+export interface ChatRoomRecord extends AnyRecord {
+  roomId: string
+  roomName: string
+  avatar: string
+  users: ChatUserRecord[]
+  unreadCount?: number
+  index?: string
+  lastMessage?: AnyRecord
+}
+
+export interface ChatRoomListResponse {
+  success: boolean
+  message: string
+  data: ChatRoomRecord[]
+}
+
+export interface ChatRoomResponse {
+  success: boolean
+  message: string
+  data: ChatRoomRecord
+}
+
+export interface ChatMessageListResponse {
+  success: boolean
+  message: string
+  data: ChatMessageRecord[]
+}
+
+export interface ChatMessageResponse {
+  success: boolean
+  message: string
+  data: ChatMessageRecord
+}
+
 export interface DashboardResponse {
   success: boolean
   message: string
@@ -409,6 +472,217 @@ const directory = {
   companies: [
     { id: 'company-main', name: 'Template Company', company_name: 'Template Company' },
   ],
+}
+
+function chatAvatar(name: string, background: string): string {
+  const initials = name
+    .split(' ')
+    .map((part) => part[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('')
+    .toUpperCase()
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><rect width="120" height="120" rx="60" fill="${background}"/><text x="50%" y="52%" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="600" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">${initials}</text></svg>`
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`
+}
+
+export const CHAT_CURRENT_USER_ID = 'u-001'
+export const AI_BOT_USER_ID = 'ai-assistant'
+
+const chatUsers: Record<string, ChatUserRecord> = {
+  'u-001': {
+    _id: 'u-001',
+    username: 'Template User',
+    avatar: chatAvatar('Template User', '#465FFF'),
+    status: { state: 'online', lastChanged: 'now' },
+  },
+  'ai-assistant': {
+    _id: 'ai-assistant',
+    username: 'AI Assistant',
+    avatar: chatAvatar('AI Assistant', '#7A5AF8'),
+    status: { state: 'online', lastChanged: 'now' },
+  },
+}
+
+const chatRooms: ChatRoomRecord[] = [
+  {
+    roomId: 'room-ai-1',
+    roomName: 'Cara Input Aset Baru',
+    avatar: chatUsers[AI_BOT_USER_ID].avatar,
+    users: [chatUsers[CHAT_CURRENT_USER_ID], chatUsers[AI_BOT_USER_ID]],
+    unreadCount: 0,
+    index: '1',
+  },
+  {
+    roomId: 'room-ai-2',
+    roomName: 'Kebijakan Depresiasi',
+    avatar: chatUsers[AI_BOT_USER_ID].avatar,
+    users: [chatUsers[CHAT_CURRENT_USER_ID], chatUsers[AI_BOT_USER_ID]],
+    unreadCount: 0,
+    index: '2',
+  },
+  {
+    roomId: 'room-ai-3',
+    roomName: 'Rekap Laporan Bulanan',
+    avatar: chatUsers[AI_BOT_USER_ID].avatar,
+    users: [chatUsers[CHAT_CURRENT_USER_ID], chatUsers[AI_BOT_USER_ID]],
+    unreadCount: 0,
+    index: '3',
+  },
+]
+
+const chatMessages: Record<string, ChatMessageRecord[]> = {
+  'room-ai-1': [
+    {
+      _id: 'm-1001',
+      senderId: CHAT_CURRENT_USER_ID,
+      content: 'Bagaimana cara menambahkan aset baru ke sistem?',
+      date: 'Yesterday',
+      timestamp: '10:12',
+      saved: true,
+      distributed: true,
+      seen: true,
+    },
+    {
+      _id: 'm-1002',
+      senderId: AI_BOT_USER_ID,
+      content:
+        'Anda bisa membuka menu Asset > Asset Fixed, lalu klik tombol "Tambah Aset" dan isi data seperti nama, kategori, dan lokasi.',
+      date: 'Yesterday',
+      timestamp: '10:12',
+      saved: true,
+      distributed: true,
+      seen: true,
+    },
+  ],
+  'room-ai-2': [
+    {
+      _id: 'm-2001',
+      senderId: CHAT_CURRENT_USER_ID,
+      content: 'Metode depresiasi apa saja yang didukung sistem ini?',
+      date: 'Today',
+      timestamp: '08:30',
+      saved: true,
+      distributed: true,
+      seen: true,
+    },
+    {
+      _id: 'm-2002',
+      senderId: AI_BOT_USER_ID,
+      content:
+        'Saat ini didukung metode Garis Lurus (Straight Line) dan Saldo Menurun (Declining Balance), bisa diatur di menu Depreciation > Policies.',
+      date: 'Today',
+      timestamp: '08:30',
+      saved: true,
+      distributed: true,
+      seen: true,
+    },
+  ],
+  'room-ai-3': [
+    {
+      _id: 'm-3001',
+      senderId: CHAT_CURRENT_USER_ID,
+      content: 'Tolong bantu rekap laporan aset bulan ini.',
+      date: 'Today',
+      timestamp: '09:12',
+      saved: true,
+      distributed: true,
+      seen: true,
+    },
+    {
+      _id: 'm-3002',
+      senderId: AI_BOT_USER_ID,
+      content:
+        'Anda bisa mengunduh rekap aset melalui menu Data Management > Export & Reports, lalu pilih tipe "Asset List" untuk laporan lengkap.',
+      date: 'Today',
+      timestamp: '09:12',
+      saved: true,
+      distributed: true,
+      seen: true,
+    },
+    {
+      _id: 'm-3003',
+      senderId: CHAT_CURRENT_USER_ID,
+      content: 'Terima kasih, sangat membantu!',
+      date: 'Today',
+      timestamp: '09:15',
+      saved: true,
+      distributed: true,
+      seen: true,
+    },
+    {
+      _id: 'm-3004',
+      senderId: AI_BOT_USER_ID,
+      content: 'Sama-sama! Jangan ragu bertanya lagi jika ada hal lain yang ingin dibantu.',
+      date: 'Today',
+      timestamp: '09:15',
+      saved: true,
+      distributed: true,
+      seen: true,
+    },
+  ],
+}
+
+const AI_REPLY_RULES: Array<{ keywords: string[]; replies: string[] }> = [
+  {
+    keywords: ['aset baru', 'tambah aset', 'input aset', 'daftar aset'],
+    replies: [
+      'Untuk mendaftarkan aset baru, buka menu Asset > Asset Fixed lalu klik tombol "Tambah Aset" dan lengkapi kategori, brand, serta lokasinya.',
+    ],
+  },
+  {
+    keywords: ['depresiasi', 'penyusutan', 'susut'],
+    replies: [
+      'Kebijakan depresiasi bisa dikonfigurasi di menu Depreciation > Policies. Sistem mendukung metode Garis Lurus maupun Saldo Menurun.',
+    ],
+  },
+  {
+    keywords: ['laporan', 'report', 'export', 'rekap'],
+    replies: [
+      'Anda dapat mengunduh laporan pada menu Data Management > Export & Reports, tersedia dalam format CSV untuk berbagai jenis data.',
+    ],
+  },
+  {
+    keywords: ['stok', 'consumable', 'konsumabel', 'habis pakai'],
+    replies: [
+      'Stok barang consumable bisa dipantau melalui menu Asset > Asset Consumeable, termasuk notifikasi saat stok mencapai batas minimum.',
+    ],
+  },
+  {
+    keywords: ['izin', 'permission', 'akses', 'hak akses'],
+    replies: [
+      'Pengaturan hak akses ada di menu Permissions. Anda bisa melihat daftar izin di Permission List dan menetapkannya di Permission Assignments.',
+    ],
+  },
+  {
+    keywords: ['kategori', 'category'],
+    replies: [
+      'Kategori aset dapat dikelola melalui menu Master > Asset Categories, termasuk menentukan apakah kategori tersebut dapat disusutkan.',
+    ],
+  },
+]
+
+const AI_DEFAULT_REPLIES = [
+  'Baik, saya catat. Ada lagi yang bisa saya bantu terkait pengelolaan aset perusahaan?',
+  'Terima kasih atas pertanyaannya. Bisa dijelaskan sedikit lebih detail agar saya bisa membantu dengan lebih tepat?',
+  'Saya masih dalam mode demo dengan jawaban template, tapi saya akan terus dikembangkan untuk membantu operasional Anda.',
+]
+
+const AI_FILE_REPLIES = [
+  'Terima kasih, file Anda sudah saya terima. Pada mode demo ini saya belum bisa membaca isi filenya secara otomatis.',
+]
+
+function pickAiReply(userMessage: string): string {
+  const text = userMessage.trim().toLowerCase()
+  if (!text) {
+    return AI_FILE_REPLIES[0]
+  }
+  for (const rule of AI_REPLY_RULES) {
+    if (rule.keywords.some((keyword) => text.includes(keyword))) {
+      return rule.replies[Math.floor(Math.random() * rule.replies.length)]
+    }
+  }
+  return AI_DEFAULT_REPLIES[Math.floor(Math.random() * AI_DEFAULT_REPLIES.length)]
 }
 
 const assets: AssetRecord[] = [
@@ -945,6 +1219,97 @@ export async function getDirectoryDepartments(): Promise<DirectoryListResponse> 
 
 export async function getDirectoryCompanies(): Promise<DirectoryListResponse> {
   return ok(directory.companies)
+}
+
+export async function getChatRooms(): Promise<ChatRoomListResponse> {
+  const rooms = [...chatRooms]
+    .sort((a, b) => Number(b.index) - Number(a.index))
+    .map((room) => {
+      const roomMessages = chatMessages[room.roomId] || []
+      const last = roomMessages[roomMessages.length - 1]
+      return {
+        ...room,
+        lastMessage: last
+          ? {
+              content: last.content,
+              senderId: last.senderId,
+              timestamp: last.timestamp,
+              saved: last.saved,
+              distributed: last.distributed,
+              seen: last.seen,
+            }
+          : undefined,
+      }
+    })
+  return ok(rooms, 'Template chat rooms loaded.')
+}
+
+export async function getChatMessages(roomId: string): Promise<ChatMessageListResponse> {
+  return ok(chatMessages[roomId] || [], 'Template chat messages loaded.')
+}
+
+export async function markChatRoomRead(roomId: string): Promise<{ success: boolean; message: string; data: null }> {
+  const room = chatRooms.find((item) => item.roomId === roomId)
+  if (room) room.unreadCount = 0
+  return { success: true, message: 'Template chat room marked as read.', data: null }
+}
+
+export async function sendChatMessage(
+  roomId: string,
+  payload: { content?: string; files?: ChatMessageFileRecord[]; replyMessage?: AnyRecord },
+): Promise<ChatMessageResponse> {
+  if (!chatMessages[roomId]) chatMessages[roomId] = []
+  const now = new Date()
+  const message: ChatMessageRecord = {
+    _id: `m-${Date.now()}`,
+    senderId: CHAT_CURRENT_USER_ID,
+    content: payload.content || '',
+    date: 'Today',
+    timestamp: now.toTimeString().slice(0, 5),
+    saved: true,
+    distributed: true,
+    seen: false,
+    files: payload.files,
+    replyMessage: payload.replyMessage,
+  }
+  chatMessages[roomId] = [...chatMessages[roomId], message]
+  const room = chatRooms.find((item) => item.roomId === roomId)
+  if (room) room.index = String(Date.now())
+  return ok(message, 'Template chat message sent.')
+}
+
+export async function sendAiReply(roomId: string, userMessage: string): Promise<ChatMessageResponse> {
+  if (!chatMessages[roomId]) chatMessages[roomId] = []
+  const now = new Date()
+  const message: ChatMessageRecord = {
+    _id: `m-${Date.now()}-ai`,
+    senderId: AI_BOT_USER_ID,
+    content: pickAiReply(userMessage),
+    date: 'Today',
+    timestamp: now.toTimeString().slice(0, 5),
+    saved: true,
+    distributed: true,
+    seen: true,
+  }
+  chatMessages[roomId] = [...chatMessages[roomId], message]
+  const room = chatRooms.find((item) => item.roomId === roomId)
+  if (room) room.index = String(Date.now())
+  return ok(message, 'Template AI reply generated.')
+}
+
+export async function createChatConversation(): Promise<ChatRoomResponse> {
+  const roomId = `room-ai-${Date.now()}`
+  const room: ChatRoomRecord = {
+    roomId,
+    roomName: 'Percakapan Baru',
+    avatar: chatUsers[AI_BOT_USER_ID].avatar,
+    users: [chatUsers[CHAT_CURRENT_USER_ID], chatUsers[AI_BOT_USER_ID]],
+    unreadCount: 0,
+    index: String(Date.now()),
+  }
+  chatRooms.unshift(room)
+  chatMessages[roomId] = []
+  return ok(room, 'Template conversation created.')
 }
 
 export async function getDashboard(): Promise<DashboardResponse> {

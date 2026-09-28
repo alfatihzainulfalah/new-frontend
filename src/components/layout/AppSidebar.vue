@@ -214,6 +214,7 @@ import {
   LayoutDashboardIcon,
   PieChartIcon,
   TableIcon,
+  ChatIcon,
 } from "../../icons";
 import { useSidebar } from "@/composables/useSidebar";
 
@@ -229,6 +230,11 @@ const menuGroups = [
         icon: LayoutDashboardIcon,
         name: "Dashboard",
         path: "/",
+      },
+      {
+        icon: ChatIcon,
+        name: "AI Assistant",
+        path: "/chat",
       },
       {
         icon: BoxIcon,

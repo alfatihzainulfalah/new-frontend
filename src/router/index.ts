@@ -113,6 +113,14 @@ const router = createRouter({
       },
     },
     {
+      path: '/chat',
+      name: 'AI Assistant',
+      component: () => import('../components/pages/chat/ChatRoomPage.vue'),
+      meta: {
+        title: 'AI Assistant',
+      },
+    },
+    {
       path: '/error-404',
       name: '404 Error',
       component: () => import('../views/Errors/FourZeroFour.vue'),
