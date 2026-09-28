@@ -6,7 +6,7 @@
     >
       <span class="relative mr-3 flex h-11 w-11 shrink-0 items-center justify-center">
         <span
-          class="avatar-badge flex h-11 w-11 items-center justify-center rounded-full text-sm font-semibold text-gray-800 dark:text-white"
+          class="avatar-badge flex h-11 w-11 items-center justify-center rounded-full text-sm font-semibold text-white ring-1 ring-white/20"
         >
           {{ initials }}
         </span>
